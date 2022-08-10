@@ -21,9 +21,15 @@ function findChildren (id, arr) {
 }
 
 // add children key to each and fill with direct decendants of the tree
-
+function insertChildren (arr) {
+  arr.forEach(category => {
+    const children = findChildren(category.categoryId, arr)
+    category.children = children
+  })
+  return arr
+}
 // set up for csv with rows array
 
 // write csv file to data folder
 
-module.exports = { app, findChildren }
+module.exports = { app, findChildren, insertChildren }
