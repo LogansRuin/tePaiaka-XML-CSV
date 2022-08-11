@@ -1,4 +1,4 @@
-const app = require('./index')
+const csvBuilder = require('../helpers/csvBuilder')
 
 describe('findChildren', () => {
   const data = [
@@ -24,9 +24,9 @@ describe('findChildren', () => {
     }
   ]
   test('returns an array', () => {
-    expect(app.findChildren(1001, data)).toEqual(expect.arrayContaining([1002, 1003, 1005]))
-    expect(app.findChildren(1001, data)).not.toEqual(expect.arrayContaining([1001, 1004]))
-    expect(app.findChildren(1001, data).length).toBe(3)
+    expect(csvBuilder.findChildren(1001, data)).toEqual(expect.arrayContaining([1002, 1003, 1005]))
+    expect(csvBuilder.findChildren(1001, data)).not.toEqual(expect.arrayContaining([1001, 1004]))
+    expect(csvBuilder.findChildren(1001, data).length).toBe(3)
   })
 })
 
@@ -55,13 +55,13 @@ describe('insertChildren', () => {
   ]
 
   test('categories with children have array with values', () => {
-    const arr = app.insertChildren(data)
+    const arr = csvBuilder.insertChildren(data)
     expect(arr.length).toBe(5)
     expect(arr[0].children).toEqual(expect.arrayContaining([1002, 1003, 1005]))
   })
 
   test('categories without children have empty array', () => {
-    const arr = app.insertChildren(data)
+    const arr = csvBuilder.insertChildren(data)
     expect(arr[4].children.length).toBe(0)
   })
 })
@@ -112,7 +112,7 @@ describe('buildCsvData', () => {
     }
   ]
   test('returns and array with 7 arrays nested init', () => {
-    const arr = app.buildCsvData(data[0], data)
+    const arr = csvBuilder.buildCsvData(data[0], data)
     expect(arr.length).toBe(7)
     expect(Array.isArray(arr[0])).toBeTruthy()
     expect(Array.isArray(arr[1])).toBeTruthy()
@@ -124,8 +124,8 @@ describe('buildCsvData', () => {
   })
 
   test('array should be ready to convert to CSV', () => {
-    const arr = app.buildCsvData(data[0], data)
-    expect(arr[0]).toEqual(expect.arrayContaining(['name', 'id','level 1', 'level 2', 'level 3', 'level 4']))
+    const arr = csvBuilder.buildCsvData(data[0], data)
+    expect(arr[0]).toEqual(expect.arrayContaining(['name', 'id', 'level 1', 'level 2', 'level 3', 'level 4']))
     expect(arr[1]).toEqual(expect.arrayContaining(['fruit', 1001, 'root', 1001]))
     expect(arr[2]).toEqual(expect.arrayContaining(['apple', 1002, 'root', 1001, 1002]))
     expect(arr[3]).toEqual(expect.arrayContaining(['granny smith', 1004, 'root', 1001, 1002, 1004]))
