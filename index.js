@@ -1,4 +1,4 @@
-const { insertChildren, buildCsvData } = require('./helpers/csvBuilder')
+const { insertChildren, buildCsvData, writeCsvFile } = require('./helpers/csvBuilder')
 const json = require('./data/categories.json')
 function app (json) {
   const arr = insertChildren(json.category)

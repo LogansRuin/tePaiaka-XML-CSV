@@ -141,3 +141,5 @@ describe('buildCsvData', () => {
     expect(arr[5]).toEqual(expect.arrayContaining(['organic', 1006, 'root', 1001, 1002, 1004, 1006]))
   })
 })
+
+// write tests for writeCsvFile - require mock knowledge

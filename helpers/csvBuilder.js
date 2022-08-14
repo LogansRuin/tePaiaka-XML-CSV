@@ -1,3 +1,6 @@
+const { writeFile } = require('fs')
+const path = require('path')
+
 // find children for a category
 function findChildren (id, arr) {
   const children = []
@@ -47,5 +50,19 @@ function buildCsvData (obj, arr, rows = [csvHeader, [obj['display-name'], obj.ca
 }
 
 // write csv file to data folder
+function writeCsvFile (data, namePrefix = 'categoryTree-') {
+  // create unique file name and path
+  const filename = namePrefix + Date.now()
+  const fileLocation = path.normalize(path.join(__dirname, '/../data/'))
 
-module.exports = { findChildren, insertChildren, buildCsvData }
+  // wirtes a
+  writeFile(`${fileLocation}/${filename}.csv`, data, (err) => {
+    if (err) {
+      throw err
+    } else {
+      return true
+    }
+  })
+}
+
+module.exports = { findChildren, insertChildren, buildCsvData, writeCsvFile }
