@@ -55,7 +55,6 @@ function writeCsvFile (data, namePrefix = 'categoryTree-') {
   const filename = namePrefix + Date.now()
   const fileLocation = path.normalize(path.join(__dirname, '/../data/'))
 
-  // wirtes a
   writeFile(`${fileLocation}/${filename}.csv`, data, (err) => {
     if (err) {
       throw err
