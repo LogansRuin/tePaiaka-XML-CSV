@@ -5,7 +5,7 @@ const path = require('path')
 function findChildren (id, arr) {
   const children = []
   arr.forEach(category => {
-    if (parseInt(category.parent) === id) {
+    if (category.parent == id) {
       children.push(category.categoryId)
     }
   })
@@ -30,7 +30,7 @@ function buildCsvData (obj, arr, rows = [csvHeader, [obj['display-name'], obj.ca
 
     children.forEach(childId => {
       // find object in array with child as the categoryID
-      const child = arr.find(e => parseInt(e.categoryId) === childId)
+      const child = arr.find(e => e.categoryId == childId)
       // make deep copy of parent array to buld upon
       const row = JSON.parse(JSON.stringify(rows.find(e => e[1] == child.parent)))
       // replace name and categoryId with child values
@@ -51,11 +51,14 @@ function buildCsvData (obj, arr, rows = [csvHeader, [obj['display-name'], obj.ca
 
 // write csv file to data folder
 function writeCsvFile (data, namePrefix = 'categoryTree-') {
+  // clean data
+  const stringData = 'data:text/csv;charset=utf-8,' + data.map(row => row.join()).join('\n')
+
   // create unique file name and path
   const filename = namePrefix + Date.now()
   const fileLocation = path.normalize(path.join(__dirname, '/../data/'))
 
-  writeFile(`${fileLocation}/${filename}.csv`, data, (err) => {
+  writeFile(`${fileLocation}/${filename}.csv`, stringData, (err) => {
     if (err) {
       throw err
     } else {
