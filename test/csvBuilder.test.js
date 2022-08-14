@@ -71,7 +71,7 @@ describe('buildCsvData', () => {
     {
       categoryId: 'root',
       'display-name': 'root',
-      children: [1001],
+      children: [1001, 1007],
       parent: ''
     },
     {
@@ -109,11 +109,17 @@ describe('buildCsvData', () => {
       'display-name': 'organic',
       children: [],
       parent: '1004'
+    },
+    {
+      categoryId: 1007,
+      'display-name': 'organic',
+      children: [],
+      parent: 'root'
     }
   ]
-  test('returns and array with 7 arrays nested init', () => {
+  test('returns and array with 9 arrays nested init', () => {
     const arr = csvBuilder.buildCsvData(data[0], data)
-    expect(arr.length).toBe(7)
+    expect(arr.length).toBe(9)
     expect(Array.isArray(arr[0])).toBeTruthy()
     expect(Array.isArray(arr[1])).toBeTruthy()
     expect(Array.isArray(arr[2])).toBeTruthy()
@@ -121,14 +127,17 @@ describe('buildCsvData', () => {
     expect(Array.isArray(arr[4])).toBeTruthy()
     expect(Array.isArray(arr[5])).toBeTruthy()
     expect(Array.isArray(arr[6])).toBeTruthy()
+    expect(Array.isArray(arr[7])).toBeTruthy()
+    expect(Array.isArray(arr[8])).toBeTruthy()
   })
 
   test('array should be ready to convert to CSV', () => {
     const arr = csvBuilder.buildCsvData(data[0], data)
     expect(arr[0]).toEqual(expect.arrayContaining(['name', 'id', 'level 1', 'level 2', 'level 3', 'level 4']))
-    expect(arr[1]).toEqual(expect.arrayContaining(['fruit', 1001, 'root', 1001]))
-    expect(arr[2]).toEqual(expect.arrayContaining(['apple', 1002, 'root', 1001, 1002]))
-    expect(arr[3]).toEqual(expect.arrayContaining(['granny smith', 1004, 'root', 1001, 1002, 1004]))
-    expect(arr[4]).toEqual(expect.arrayContaining(['organic', 1006, 'root', 1001, 1002, 1004, 1006]))
+    expect(arr[1]).toEqual(expect.arrayContaining(['root', 'root', 'root']))
+    expect(arr[2]).toEqual(expect.arrayContaining(['fruit', 1001, 'root', 1001]))
+    expect(arr[3]).toEqual(expect.arrayContaining(['apple', 1002, 'root', 1001, 1002]))
+    expect(arr[4]).toEqual(expect.arrayContaining(['granny smith', 1004, 'root', 1001, 1002, 1004]))
+    expect(arr[5]).toEqual(expect.arrayContaining(['organic', 1006, 'root', 1001, 1002, 1004, 1006]))
   })
 })

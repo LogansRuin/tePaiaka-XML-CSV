@@ -18,33 +18,25 @@ function insertChildren (arr) {
   return arr
 }
 
+const csvHeader = ['name', 'id', 'level 1', 'level 2', 'level 3', 'level 4', 'level 5', 'level 6']
+
 // set up for csv with rows array
-function buildCsvData (obj, arr, rows = [['name', 'id', 'level 1', 'level 2', 'level 3', 'level 4']], treeDepth = 0) {
+function buildCsvData (obj, arr, rows = [csvHeader, [obj['display-name'], obj.categoryId, obj.categoryId]], treeDepth = 0) {
   if (obj.children.length > 0) {
     const children = obj.children
 
     children.forEach(childId => {
       // find object in array with child as the categoryID
       const child = arr.find(e => parseInt(e.categoryId) === childId)
-
-      if (rows.length > 1) {
-        // make copy of parent row
-        const row = JSON.parse(JSON.stringify(rows.find(e => e[1] == child.parent)))
-        // replace name and categoryId with child values
-        row[0] = child['display-name']
-        row[1] = child.categoryId
-        // add child category id to the end of array
-        row.push(child.categoryId)
-        // add child row to the array
-        rows.push(row)
-      } else {
-        // create first row of data
-        const row = [child['display-name'], child.categoryId]
-        row[2] = child.parent
-        row[3] = child.categoryId
-        // add row to the array
-        rows.push(row)
-      }
+      // make deep copy of parent array to buld upon
+      const row = JSON.parse(JSON.stringify(rows.find(e => e[1] == child.parent)))
+      // replace name and categoryId with child values
+      row[0] = child['display-name']
+      row[1] = child.categoryId
+      // add child category id to the end of array
+      row.push(child.categoryId)
+      // add child row to the array
+      rows.push(row)
       // recurse
       buildCsvData(child, arr, rows, treeDepth)
     })

@@ -1,4 +1,4 @@
-const { app } = require('../index')
+// const { app } = require('../index')
 
 describe('test tests', () => {
   test('are working', () => {
@@ -7,8 +7,8 @@ describe('test tests', () => {
   })
 })
 
-describe('app', () => {
-  test('hello world', () => {
-    expect(app).toBe('Hello world')
-  })
-})
+// describe('app', () => {
+//   test('hello world', () => {
+//     expect(app).toBe('Hello world')
+//   })
+// })
