@@ -52,13 +52,17 @@ function buildCsvData (obj, arr, rows = [csvHeader, [obj['display-name'], obj.ca
 // write csv file to data folder
 function writeCsvFile (data, namePrefix = 'categoryTree-') {
   // clean data
-  const stringData = 'data:text/csv;charset=utf-8,' + data.map(row => row.join()).join('\n')
-
+  // data = 'data:text/csv;charset=utf-8\n' + data.map(row => row.join()).join('\n')
+  const cleanData = data.map(row => row.map(e => {
+    e.toString()
+    return `"${e}"`
+  }))
+  data = 'data:text/csv;charset=utf-8\n' + cleanData.map(row => row.join()).join('\n')
   // create unique file name and path
   const filename = namePrefix + Date.now()
   const fileLocation = path.normalize(path.join(__dirname, '/../data/'))
 
-  writeFile(`${fileLocation}/${filename}.csv`, stringData, (err) => {
+  writeFile(`${fileLocation}/${filename}.csv`, data, (err) => {
     if (err) {
       throw err
     } else {
