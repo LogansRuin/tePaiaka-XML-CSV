@@ -135,7 +135,7 @@ describe('buildCsvData', () => {
     let arr = csvBuilder.buildCsvData(data[0], data)
     const treeArr = []
     arr.forEach(row =>  treeArr.push(row.slice(2)))
-    expect(treeArr[0]).toEqual(expect.arrayContaining(['level 1', 'level 2', 'level 3', 'level 4']))
+    expect(treeArr[0]).toEqual(expect.arrayContaining(['root', 'level 1', 'level 2', 'level 3']))
     expect(treeArr[1]).toEqual(expect.arrayContaining(['root']))
     expect(treeArr[2]).toEqual(expect.arrayContaining(['root', 'fruit']))
     expect(treeArr[3]).toEqual(expect.arrayContaining(['root', 'fruit', 'apple']))

@@ -21,7 +21,7 @@ function insertChildren (arr) {
   return arr
 }
 
-const csvHeader = ['name', 'id', 'level 1', 'level 2', 'level 3', 'level 4', 'level 5', 'level 6']
+const csvHeader = ['name', 'id', 'root', 'level 1', 'level 2', 'level 3', 'level 4', 'level 5']
 
 // set up for csv with rows array
 function buildCsvData (obj, arr, rows = [csvHeader, [obj['display-name'], obj.categoryId, obj.categoryId]], treeDepth = 0) {
@@ -57,7 +57,7 @@ function writeCsvFile (data, namePrefix = 'categoryTree-') {
     return `"${e}"`
   }))
   
-  data = 'data:text/csv;charset=utf-8\n' + cleanData.map(row => row.join()).join('\n')
+  data = cleanData.map(row => row.join()).join('\n')
 
   // create unique file name and path
   const filename = namePrefix + Date.now()
