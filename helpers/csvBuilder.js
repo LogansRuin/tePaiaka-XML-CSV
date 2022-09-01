@@ -36,8 +36,8 @@ function buildCsvData (obj, arr, rows = [csvHeader, [obj['display-name'], obj.ca
       // replace name and categoryId with child values
       row[0] = child['display-name']
       row[1] = child.categoryId
-      // add child category id to the end of array
-      row.push(child.categoryId)
+      // add child name to the end of array
+      row.push(child['display-name'])
       // add child row to the array
       rows.push(row)
       // recurse
@@ -52,12 +52,13 @@ function buildCsvData (obj, arr, rows = [csvHeader, [obj['display-name'], obj.ca
 // write csv file to data folder
 function writeCsvFile (data, namePrefix = 'categoryTree-') {
   // clean data
-  // data = 'data:text/csv;charset=utf-8\n' + data.map(row => row.join()).join('\n')
   const cleanData = data.map(row => row.map(e => {
     e.toString()
     return `"${e}"`
   }))
+  
   data = 'data:text/csv;charset=utf-8\n' + cleanData.map(row => row.join()).join('\n')
+
   // create unique file name and path
   const filename = namePrefix + Date.now()
   const fileLocation = path.normalize(path.join(__dirname, '/../data/'))

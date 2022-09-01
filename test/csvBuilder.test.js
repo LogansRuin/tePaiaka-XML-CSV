@@ -131,15 +131,52 @@ describe('buildCsvData', () => {
     expect(Array.isArray(arr[8])).toBeTruthy()
   })
 
-  test('array should be ready to convert to CSV', () => {
-    const arr = csvBuilder.buildCsvData(data[0], data)
-    expect(arr[0]).toEqual(expect.arrayContaining(['name', 'id', 'level 1', 'level 2', 'level 3', 'level 4']))
-    expect(arr[1]).toEqual(expect.arrayContaining(['root', 'root', 'root']))
-    expect(arr[2]).toEqual(expect.arrayContaining(['fruit', 1001, 'root', 1001]))
-    expect(arr[3]).toEqual(expect.arrayContaining(['apple', 1002, 'root', 1001, 1002]))
-    expect(arr[4]).toEqual(expect.arrayContaining(['granny smith', 1004, 'root', 1001, 1002, 1004]))
-    expect(arr[5]).toEqual(expect.arrayContaining(['organic', 1006, 'root', 1001, 1002, 1004, 1006]))
+  test('array should show the heritage of the given category by Name', () => {
+    let arr = csvBuilder.buildCsvData(data[0], data)
+    const treeArr = []
+    arr.forEach(row =>  treeArr.push(row.slice(2)))
+    expect(treeArr[0]).toEqual(expect.arrayContaining(['level 1', 'level 2', 'level 3', 'level 4']))
+    expect(treeArr[1]).toEqual(expect.arrayContaining(['root']))
+    expect(treeArr[2]).toEqual(expect.arrayContaining(['root', 'fruit']))
+    expect(treeArr[3]).toEqual(expect.arrayContaining(['root', 'fruit', 'apple']))
+    expect(treeArr[4]).toEqual(expect.arrayContaining(['root', 'fruit', 'apple', 'granny smith']))
+    expect(treeArr[5]).toEqual(expect.arrayContaining(['root', 'fruit', 'apple', 'granny smith', 'organic']))
+
   })
+
+  test('array should have a cgid', () => {
+    const arr = csvBuilder.buildCsvData(data[0], data)
+    let uri = arr[2][1]
+    expect(uri).toEqual(1001)
+    uri = arr[3][1]
+    expect(uri).toEqual(1002)
+    uri = arr[5][1]
+    expect(uri).toEqual(1006)
+  })
+
+  test('array should tell us whether the catgory is online', () => {
+    
+  })
+
+  test('array should have a name', () => {
+    const arr = csvBuilder.buildCsvData(data[0], data)
+    let name = arr[3][0]
+    expect(name).toEqual('apple')
+    expect(name).not.toBe
+  })
+
+  // test('cgid should not include special characters other than - as the join', () => {
+  
+  // })
+
+  // test('array should have a uri begining with /c/', () => {
+  //   const arr = csvBuilder.buildCsvData(data[0], data)
+  //   let uri = arr[2][2]
+  //   expect(uri).toEqual('/c/fruit')
+  //   expect(uri).not.toEqual('/c/Fruit')
+  //   uri = arr[3][2]
+  //   expect(uri).toEqual('/c/fruit/apple')
+  // })
 })
 
 // write tests for writeCsvFile - require mock knowledge
