@@ -6,7 +6,7 @@ function findChildren (id, arr) {
   const children = []
   arr.forEach(category => {
     if (category.parent == id) {
-      children.push(category.categoryId)
+      children.push(category.cgid)
     }
   })
   return children
@@ -15,7 +15,7 @@ function findChildren (id, arr) {
 // add children key to each and fill with direct decendants of the tree
 function insertChildren (arr) {
   arr.forEach(category => {
-    const children = findChildren(category.categoryId, arr)
+    const children = findChildren(category.cgid, arr)
     category.children = children
   })
   return arr
@@ -24,20 +24,20 @@ function insertChildren (arr) {
 const csvHeader = ['name', 'id', 'root', 'level 1', 'level 2', 'level 3', 'level 4', 'level 5']
 
 // set up for csv with rows array
-function buildCsvData (obj, arr, rows = [csvHeader, [obj['display-name'], obj.categoryId, obj.categoryId]], treeDepth = 0) {
+function buildCsvData (obj, arr, rows = [csvHeader, [obj.name, obj.cgid, obj.cgid]], treeDepth = 0) {
   if (obj.children.length > 0) {
     const children = obj.children
 
     children.forEach(childId => {
       // find object in array with child as the categoryID
-      const child = arr.find(e => e.categoryId == childId)
+      const child = arr.find(e => e.cgid == childId)
       // make deep copy of parent array to buld upon
       const row = JSON.parse(JSON.stringify(rows.find(e => e[1] == child.parent)))
       // replace name and categoryId with child values
-      row[0] = child['display-name']
-      row[1] = child.categoryId
+      row[0] = child.name
+      row[1] = child.cgid
       // add child name to the end of array
-      row.push(child['display-name'])
+      row.push(child.name)
       // add child row to the array
       rows.push(row)
       // recurse

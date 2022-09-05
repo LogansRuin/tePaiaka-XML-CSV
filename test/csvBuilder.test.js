@@ -1,88 +1,143 @@
 const csvBuilder = require('../helpers/csvBuilder')
 
-const data = [
+
+// Set Up data
+const dataNoChildren = [
   {
-    categoryId: 'root',
-    'display-name': 'root',
-    children: [1001, 1007],
+    cgid: 'root',
+    name: 'root',
     parent: '',
     online: true
   },
   {
-    categoryId: 1001,
-    'display-name': 'fruit',
-    children: [1002, 1003, 1005],
+    cgid: 1001,
+    name: 'fruit',
     parent: 'root',
     online: true
   },
   {
-    categoryId: 1002,
-    'display-name': 'apple',
-    children: [1004],
+    cgid: 1002,
+    name: 'apple',
     parent: '1001',
     online: true
   },
   {
-    categoryId: 1003,
-    'display-name': 'grapes',
-    children: [],
+    cgid: 1003,
+    name: 'grapes',
     parent: '1001',
     online: true
   },
   {
-    categoryId: 1004,
-    'display-name': 'granny smith',
-    children: [1006],
+    cgid: 1004,
+    name: 'granny smith',
     parent: '1002',
     online: true
   },
   {
-    categoryId: 1005,
-    'display-name': 'kiwifruit',
-    children: [],
+    cgid: 1005,
+    name: 'kiwifruit',
     parent: '1001',
     online: true
   },
   {
-    categoryId: 1006,
-    'display-name': 'organic',
-    children: [],
+    cgid: 1006,
+    name: 'organic',
     parent: '1004',
     online: true
   },
   {
-    categoryId: 1007,
-    'display-name': 'organic',
-    children: [],
+    cgid: 1007,
+    name: 'organic',
     parent: 'root',
     online: true
   }
 ]
 
+const dataWithChildren = [
+  {
+    cgid: 'root',
+    name: 'root',
+    children: [1001, 1007],
+    parent: '',
+    online: true
+  },
+  {
+    cgid: 1001,
+    name: 'fruit',
+    children: [1002, 1003, 1005],
+    parent: 'root',
+    online: true
+  },
+  {
+    cgid: 1002,
+    name: 'apple',
+    children: [1004],
+    parent: '1001',
+    online: true
+  },
+  {
+    cgid: 1003,
+    name: 'grapes',
+    children: [],
+    parent: '1001',
+    online: true
+  },
+  {
+    cgid: 1004,
+    name: 'granny smith',
+    children: [1006],
+    parent: '1002',
+    online: true
+  },
+  {
+    cgid: 1005,
+    name: 'kiwifruit',
+    children: [],
+    parent: '1001',
+    online: true
+  },
+  {
+    cgid: 1006,
+    name: 'organic',
+    children: [],
+    parent: '1004',
+    online: true
+  },
+  {
+    cgid: 1007,
+    name: 'organic',
+    children: [],
+    parent: 'root',
+    online: true
+  }
+]
+// Tests for findChildren()
 describe('findChildren', () => {
   test('returns an array', () => {
-    expect(csvBuilder.findChildren(1001, data)).toEqual(expect.arrayContaining([1002, 1003, 1005]))
-    expect(csvBuilder.findChildren(1001, data)).not.toEqual(expect.arrayContaining([1001, 1004]))
-    expect(csvBuilder.findChildren(1001, data).length).toBe(3)
+    expect(csvBuilder.findChildren(1001, dataNoChildren)).toEqual(expect.arrayContaining([1002, 1003, 1005]))
+    expect(csvBuilder.findChildren(1001, dataNoChildren)).not.toEqual(expect.arrayContaining([1001, 1004]))
+    expect(csvBuilder.findChildren(1001, dataNoChildren).length).toBe(3)
   })
 })
 
+// Tests for insertChild()
 describe('insertChildren', () => {
   test('categories with children have array with values', () => {
-    const arr = csvBuilder.insertChildren(data)
+    const arr = csvBuilder.insertChildren(dataNoChildren)
     expect(arr.length).toBe(8)
     expect(arr[0].children).toEqual(expect.arrayContaining([1001, 1007]))
   })
 
   test('categories without children have empty array', () => {
-    const arr = csvBuilder.insertChildren(data)
+    const arr = csvBuilder.insertChildren(dataNoChildren)
     expect(arr[3].children.length).toBe(0)
   })
 })
 
-describe('buildCsvData', () => {
+// Tests for buildCsvData()
+describe('buildCsvData: General tests', () => {
   test('returns and array with 9 arrays nested init', () => {
-    const arr = csvBuilder.buildCsvData(data[0], data)
+    const arr = csvBuilder.buildCsvData(dataWithChildren[0], dataWithChildren)
     expect(arr.length).toBe(9)
     expect(Array.isArray(arr[0])).toBeTruthy()
     expect(Array.isArray(arr[1])).toBeTruthy()
@@ -96,9 +151,9 @@ describe('buildCsvData', () => {
   })
 })
 
-describe ('buildCSV: Tree tests', () => {
+describe ('buildCsvData: Tree tests', () => {
   test('array should show the heritage of the given category by Name', () => {
-    let arr = csvBuilder.buildCsvData(data[0], data)
+    let arr = csvBuilder.buildCsvData(dataWithChildren[0], dataWithChildren)
     const treeArr = []
     arr.forEach(row =>  treeArr.push(row.slice(2)))
     expect(treeArr[0]).toEqual(expect.arrayContaining(['root', 'level 1', 'level 2', 'level 3']))
@@ -111,24 +166,24 @@ describe ('buildCSV: Tree tests', () => {
   })
 })
 
-// describe ('buildCSV: Online tests', () => {
-//   test('array should tell us whether the catgory is online', () => {
+describe ('buildCsvData: Online tests', () => {
+  // test('array should tell us whether the catgory is online', () => {
     
-//   })
-// })
+  // })
+})
 
-describe ('buildCSV: Name tests', () => {
+describe ('buildCsvData: Name tests', () => {
   test('array should have a name', () => {
-    const arr = csvBuilder.buildCsvData(data[0], data)
+    const arr = csvBuilder.buildCsvData(dataWithChildren[0], dataWithChildren)
     let name = arr[3][0]
     expect(name).toEqual('apple')
     expect(name).not.toBe
   })
 })
 
-describe ('buildCSV: CGID tests', () => {
+describe ('buildCsvData: CGID tests', () => {
   test('array should have a cgid', () => {
-    const arr = csvBuilder.buildCsvData(data[0], data)
+    const arr = csvBuilder.buildCsvData(dataWithChildren[0], dataWithChildren)
     let uri = arr[2][1]
     expect(uri).toEqual(1001)
     uri = arr[3][1]
@@ -142,9 +197,9 @@ describe ('buildCSV: CGID tests', () => {
   // })
 })
 
-describe('buildCSV: URI tests', () => {
+describe('buildCsvData: URI tests', () => {
   // test('array should have a uri begining with /c/', () => {
-  //   const arr = csvBuilder.buildCsvData(data[0], data)
+  //   const arr = csvBuilder.buildCsvData(dataWithChildren[0], dataWithChildren)
   //   let uri = arr[2][2]
   //   expect(uri).toEqual('/c/fruit')
   //   expect(uri).not.toEqual('/c/Fruit')
