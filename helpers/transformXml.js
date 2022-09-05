@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const xml2js = require('xml2js')
 const parser = new xml2js.Parser()
-const util = require('util')
 
 const filePath = path.join(__dirname, './../data/twl-storefront-20220824.xml')
 
