@@ -5,13 +5,9 @@ const poorlyFormedPath = path.join(__dirname, '/data/poorlyFormed.xml')
 const { transformXml } = require("../helpers/transformXml");
 
 // Tests for transformXml
-describe('transformXML', () => {
-  test('transformXML should error if XML is not well formed', () => {
-    return transformXml(poorlyFormedPath)
-      .then((res) => {console.log(res[0])})
-      .catch((err) => {
-        expect(err).toBeTruthy()
-      })
+describe('transformXml', () => {
+  test('should throw an error if XML is not well formed', async () => {
+    await expect(transformXml(poorlyFormedPath)).rejects.toThrow(Error)
   })
 
   test('nested objects have 4 properties', () => {
