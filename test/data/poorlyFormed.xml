@@ -1,0 +1,138 @@
+
+<catalog xmlns="http://www.demandware.com/xml/impex/catalog/2006-10-31" catalog-id="test-xml-catalog">
+  <category category-id="root">
+    <display-name xml:lang="x-default">Root Test Category</display-name>
+    <online-flag>true</online-flag>
+  <!-- </category> -->
+  
+  <category category-id="pets">
+    <display-name xml:lang="x-default">Pets</display-name>
+    <online-flag>true</online-flag>
+    <parent>root</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Pets | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Pet category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="pets-dogs">
+    <display-name xml:lang="x-default">Dogs</display-name>
+    <online-flag>true</online-flag>
+    <parent>pets</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Dogs | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Dog category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="pets-dogs-poodles">
+    <display-name xml:lang="x-default">Poodles</display-name>
+    <online-flag>true</online-flag>
+    <parent>pets-dogs</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Poodles | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Poodles category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="pets-dogs-chihuahua">
+    <display-name xml:lang="x-default">Chihuahua</display-name>
+    <online-flag>true</online-flag>
+    <parent>pets-dogs</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Chihuahua | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Chihuahua category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="pets-cats">
+    <display-name xml:lang="x-default">Cats</display-name>
+    <online-flag>true</online-flag>
+    <parent>pets</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Cats | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Cat category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="pets-cats-tabbies">
+    <display-name xml:lang="x-default">Tabbies</display-name>
+    <online-flag>true</online-flag>
+    <parent>pets-cats</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Tabbies | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Tabbies category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="pets-cats-persians">
+    <display-name xml:lang="x-default">Persians</display-name>
+    <online-flag>true</online-flag>
+    <parent>pets-cats</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Persians | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Persians category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="pets-fish">
+    <display-name xml:lang="x-default">Fish</display-name>
+    <online-flag>true</online-flag>
+    <parent>pets</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Fish | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Fish category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="fruit">
+    <display-name xml:lang="x-default">Fruit</display-name>
+    <online-flag>true</online-flag>
+    <parent>root</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Fruit | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Fruit category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="fruit-vine">
+    <display-name xml:lang="x-default">Vine Fruit</display-name>
+    <online-flag>true</online-flag>
+    <parent>fruit</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Vine Fruit | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Vine Fruit category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+  
+  <category category-id="fruit-tree">
+    <display-name xml:lang="x-default">Tree Fruit</display-name>
+    <online-flag>true</online-flag>
+    <parent>fruit</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Tree Fruit | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Tree Fruit category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="fruit-tree-oranges">
+    <display-name xml:lang="x-default">Oranges</display-name>
+    <online-flag>true</online-flag>
+    <parent>fruit-tree</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Oranges | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Oranges category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="fruit-tree-bannanas">
+    <display-name xml:lang="x-default">Bannanas</display-name>
+    <online-flag>true</online-flag>
+    <parent>fruit-tree</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Bannanas | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Bannanas category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+</catalog>

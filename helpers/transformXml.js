@@ -2,8 +2,8 @@ const fs = require('fs')
 const xml2js = require('xml2js')
 const parser = new xml2js.Parser()
 
-const transformXml = (filePath) => {
-  return new Promise ( res => {
+function transformXml (filePath) {
+  return new Promise ( (res, rej) => {
     const categories = fs.readFile(filePath, (err, data) => {
       parser.parseStringPromise(data)
         .then((result) => { return result.catalog.category })
@@ -22,16 +22,11 @@ const transformXml = (filePath) => {
           }
           res(categories)
         })
-        .catch((err) => console.error(err))
+        .catch((err) => {
+          rej(err)
+        })
     })
   })
 }
-
-// const path = require('path')
-// const filePath = path.join(__dirname, './../data/twl-storefront-20220824.xml')
-// transformXml(filePath)
-//   .then((res) => {
-//     console.dir(res)
-//   })
 
 module.exports = { transformXml }
