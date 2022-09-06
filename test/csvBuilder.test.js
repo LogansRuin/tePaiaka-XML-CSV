@@ -111,6 +111,66 @@ const dataWithChildren = [
     online: true
   }
 ]
+
+const dataWithNullName = [
+  {
+    cgid: 'root',
+    name: 'root',
+    children: [1001, 1007],
+    parent: '',
+    online: true
+  },
+  {
+    cgid: 1001,
+    name: 'fruit',
+    children: [1002, 1003, 1005],
+    parent: 'root',
+    online: true
+  },
+  {
+    cgid: 1002,
+    name: 'apple',
+    children: [1004],
+    parent: '1001',
+    online: true
+  },
+  {
+    cgid: 1003,
+    name: 'grapes',
+    children: [],
+    parent: '1001',
+    online: true
+  },
+  {
+    cgid: 1004,
+    name: 'granny smith',
+    children: [1006],
+    parent: '1002',
+    online: true
+  },
+  {
+    cgid: 1005,
+    name: 'kiwifruit',
+    children: [],
+    parent: '1001',
+    online: true
+  },
+  {
+    cgid: 1006,
+    name: 'organic',
+    children: [],
+    parent: '1004',
+    online: true
+  },
+  {
+    cgid: 1007,
+    name: null,
+    children: [],
+    parent: 'root',
+    online: true
+  }
+]
+
 // Tests for findChildren()
 describe('findChildren', () => {
   test('returns an array', () => {

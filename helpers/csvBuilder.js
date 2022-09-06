@@ -53,8 +53,12 @@ function buildCsvData (obj, arr, rows = [csvHeader, [obj.name, obj.cgid, obj.cgi
 function writeCsvFile (data, namePrefix = 'categoryTree-') {
   // clean data
   const cleanData = data.map(row => row.map(e => {
-    e.toString()
-    return `"${e}"`
+    if (e === null) {
+      return ""
+    } else {
+      e.toString()
+      return `"${e}"`
+    }
   }))
   
   data = cleanData.map(row => row.join()).join('\n')
