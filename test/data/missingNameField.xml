@@ -1,0 +1,26 @@
+<catalog xmlns="http://www.demandware.com/xml/impex/catalog/2006-10-31" catalog-id="test-xml-catalog">
+  <category category-id="root">
+    <display-name xml:lang="x-default">Root Test Category</display-name>
+    <online-flag>true</online-flag>
+  </category>
+  
+  <category category-id="pets">
+    <display-name xml:lang="x-default">Pets</display-name>
+    <online-flag>true</online-flag>
+    <parent>root</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Pets | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Pet category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+
+  <category category-id="pets-dogs">
+    <!-- <display-name xml:lang="x-default">Dogs</display-name> -->
+    <online-flag>true</online-flag>
+    <parent>pets</parent>
+    <page-attributes>
+      <page-title xml:lang="x-default">Dogs | Test Category</page-title>
+      <page-description xml:lang="x-default">This is a pages description for the Dog category &amp; it should be well formed</page-description>
+    </page-attributes>
+  </category>
+</catalog>

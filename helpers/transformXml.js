@@ -14,7 +14,7 @@ function transformXml (filePath) {
             const category = new Object
             // extract required attributes from data
             category.cgid = data.$['category-id']
-            category.name = data['display-name'][0]._
+            category.name = data['display-name'] === undefined ? null : data['display-name'][0]._
             category.parent = data.parent === undefined ? null : data.parent[0]
             category.online = data['online-flag'][0]
             // add category to array
