@@ -21,10 +21,10 @@ function insertChildren (arr) {
   return arr
 }
 
-const csvHeader = ['name', 'id', 'root', 'level 1', 'level 2', 'level 3', 'level 4', 'level 5']
+const csvHeader = ['name', 'id', 'online status', 'root', 'level 1 name', 'level 2 name', 'level 3 name', 'level 4 name', 'level 5 name']
 
 // set up for csv with rows array
-function buildCsvData (obj, arr, rows = [csvHeader, [obj.name, obj.cgid, obj.cgid]], treeDepth = 0) {
+function buildCsvData (obj, arr, rows = [csvHeader, [obj.name, obj.cgid, obj.online, obj.cgid]], treeDepth = 0) {
   if (obj.children.length > 0) {
     const children = obj.children
 
@@ -33,9 +33,10 @@ function buildCsvData (obj, arr, rows = [csvHeader, [obj.name, obj.cgid, obj.cgi
       const child = arr.find(e => e.cgid == childId)
       // make deep copy of parent array to buld upon
       const row = JSON.parse(JSON.stringify(rows.find(e => e[1] == child.parent)))
-      // replace name and categoryId with child values
+      // replace name and categoryId with child values)
       row[0] = child.name
       row[1] = child.cgid
+      row[2] = child.online
       // add child name to the end of array
       row.push(child.name)
       // add child row to the array

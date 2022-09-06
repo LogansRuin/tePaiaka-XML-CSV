@@ -108,7 +108,7 @@ const dataWithChildren = [
     name: 'organic',
     children: [],
     parent: 'root',
-    online: true
+    online: false
   }
 ]
 
@@ -216,7 +216,7 @@ describe ('buildCsvData: Tree tests', () => {
     let arr = csvBuilder.buildCsvData(dataWithChildren[0], dataWithChildren)
     const treeArr = []
     arr.forEach(row =>  treeArr.push(row.slice(2)))
-    expect(treeArr[0]).toEqual(expect.arrayContaining(['root', 'level 1', 'level 2', 'level 3']))
+    expect(treeArr[0]).toEqual(expect.arrayContaining(['root', 'level 1 name', 'level 2 name', 'level 3 name']))
     expect(treeArr[1]).toEqual(expect.arrayContaining(['root']))
     expect(treeArr[2]).toEqual(expect.arrayContaining(['root', 'fruit']))
     expect(treeArr[3]).toEqual(expect.arrayContaining(['root', 'fruit', 'apple']))
@@ -227,9 +227,13 @@ describe ('buildCsvData: Tree tests', () => {
 })
 
 describe ('buildCsvData: Online tests', () => {
-  // test('array should tell us whether the catgory is online', () => {
-    
-  // })
+  test('array should tell us whether the catgory is online', () => {
+    const arr = csvBuilder.buildCsvData(dataWithChildren[0], dataWithChildren)
+    let onlineStatus = arr[3][2]
+    expect(onlineStatus).toEqual(true)
+    onlineStatus = arr[8][2]
+    expect(onlineStatus).toEqual(false)
+  })
 })
 
 describe ('buildCsvData: Name tests', () => {
@@ -237,7 +241,6 @@ describe ('buildCsvData: Name tests', () => {
     const arr = csvBuilder.buildCsvData(dataWithChildren[0], dataWithChildren)
     let name = arr[3][0]
     expect(name).toEqual('apple')
-    expect(name).not.toBe
   })
 })
 
