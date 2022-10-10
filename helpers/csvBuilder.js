@@ -51,7 +51,7 @@ function buildCsvData (obj, arr, rows = [csvHeader, [obj.name, obj.cgid, obj.onl
 }
 
 // write csv file to data folder
-function writeCsvFile (data, namePrefix = 'categoryTree-') {
+function writeCsvFile (data, filename) {
   // clean data
   const cleanData = data.map(row => row.map(e => {
     if (e === null) {
@@ -65,8 +65,8 @@ function writeCsvFile (data, namePrefix = 'categoryTree-') {
   data = cleanData.map(row => row.join()).join('\n')
 
   // create unique file name and path
-  const filename = namePrefix + Date.now()
-  const fileLocation = path.normalize(path.join(__dirname, '/../data/'))
+  if(filename === undefined) {filename = "category-tree-" + Date.now()}
+  const fileLocation = path.normalize(path.join(__dirname, '/../data/downloads'))
 
   writeFile(`${fileLocation}/${filename}.csv`, data, (err) => {
     if (err) {

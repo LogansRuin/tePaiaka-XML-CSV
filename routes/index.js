@@ -4,6 +4,9 @@ const multer = require('multer')
 const fs = require('fs')
 const path = require('path')
 
+const { transformXml } = require('../helpers/transformXml')
+const csvBuilder = require('../helpers/csvBuilder')
+
 const upload = multer({ 
   dest: 'data/uploads',
   fileFilter: (req, file, callback) => {
@@ -22,18 +25,27 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/category', upload.single('uploaded_file'), (req, res, next) => {
-  const filename = `${req.body.filename}-${Date.now()}.xml`
+  const filename = `${req.body.filename}-${Date.now()}`
   const oldPath = req.file.path
-  const newPath = `${req.file.destination}/${filename}`
+  const newPath = `${req.file.destination}/${filename}.xml`
   fs.rename( oldPath, newPath, (err) => {
     if (err) throw err
-    res.json({
-      success: true,
-      msg: "File writen",
-      path: newPath,
-      feilds: req.body,
-      file: req.file
+    transformXml(newPath)
+    .then(result => {
+      const arr = csvBuilder.insertChildren(result)
+      const root = arr[0]
+      const data = csvBuilder.buildCsvData(root, arr)
+      csvBuilder.writeCsvFile(data, `${filename}`)
     })
+    .then(
+      result => {
+        res.send(result)
+        // const fileLocation = path.normalize(path.join(__dirname, `/../data/downloads/${filename}.csv`))
+        // res.download(fileLocation, filename, (err) => {
+        //   if (err) throw err
+        // })
+      }
+    )
   })
 })
 
